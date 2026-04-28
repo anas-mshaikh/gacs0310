@@ -4,16 +4,18 @@ Discover and name interpretable coordinate axes from emotion embeddings via PCA,
 correlating PC scores with mood categories, valence, and arousal.
 """
 
-import json, ast, warnings
+import ast
+import json
+
+import matplotlib
 import numpy as np
 import pandas as pd
-from scipy.stats import pointbiserialr, pearsonr
-from sklearn.preprocessing import StandardScaler
+from scipy.stats import pearsonr, pointbiserialr
 from sklearn.decomposition import PCA
-import matplotlib
+from sklearn.preprocessing import StandardScaler
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
 
 # ── Constants ──────────────────────────────────────────────────────────────────
 
@@ -302,7 +304,7 @@ cbar.set_label("Correlation (r)", fontsize=10)
 plt.tight_layout()
 fig.savefig(f"{OUT_DIR}/axis_visualization.png", dpi=150, bbox_inches="tight")
 plt.close(fig)
-print(f"  Saved axis_visualization.png (dpi=150)")
+print("  Saved axis_visualization.png (dpi=150)")
 
 print("\n" + "=" * 70)
 print("DONE")

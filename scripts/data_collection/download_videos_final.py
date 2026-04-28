@@ -91,7 +91,7 @@ matched = {f.stem for f in all_valid} & set(df["video_id"])
 
 print()
 print("=" * 60)
-print(f"FINAL RESULT")
+print("FINAL RESULT")
 print(f"  New downloads: {success}")
 print(f"  Failed: {len(failed)}")
 print(f"  Total valid mp4: {len(all_valid)}")

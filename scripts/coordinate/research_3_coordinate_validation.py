@@ -3,25 +3,27 @@ research_3_coordinate_validation.py
 Build GACS coordinate mapping and validate it.
 """
 
-import os
-import json
 import ast
+import json
+import os
 import warnings
+
 warnings.filterwarnings("ignore")
 
+import matplotlib
 import numpy as np
 import pandas as pd
-import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score, confusion_matrix, classification_report, f1_score, accuracy_score
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import cross_val_predict, StratifiedKFold
-from scipy.spatial.distance import pdist, squareform, cdist
+from scipy.spatial.distance import cdist, pdist
 from scipy.stats import kruskal
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score, silhouette_score
+from sklearn.model_selection import StratifiedKFold, cross_val_predict
+from sklearn.preprocessing import StandardScaler
 
 ROOT = "/home/jongcircle/dev/gacs0202"
 OUT = os.path.join(ROOT, "research")
@@ -367,7 +369,7 @@ validation["ev_distance"] = {
 # ═══════════════════════════════════════════════════════════════
 with open(os.path.join(OUT, "coordinate_validation.json"), "w") as f:
     json.dump(validation, f, indent=2)
-print(f"\nSaved coordinate_validation.json")
+print("\nSaved coordinate_validation.json")
 
 # ═══════════════════════════════════════════════════════════════
 # Plots: 2x2
@@ -445,7 +447,7 @@ print(f"  Macro-F1: {macro_f1}")
 print(f"  EV distance mean: {validation['ev_distance']['mean_ev_dist']}")
 print(f"  EV distance range: [{validation['ev_distance']['min_ev_dist']}, {validation['ev_distance']['max_ev_dist']}]")
 print(f"\nOutputs in {OUT}/:")
-print(f"  - gacs_coordinates.csv")
-print(f"  - coordinate_validation.json")
-print(f"  - validation_plots.png")
+print("  - gacs_coordinates.csv")
+print("  - coordinate_validation.json")
+print("  - validation_plots.png")
 print("Done.")

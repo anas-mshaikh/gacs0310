@@ -30,13 +30,13 @@ Author: Claude Code
 Version: 1.0
 """
 
-import sys
-import json
 import argparse
-from pathlib import Path
-from typing import List, Dict, Tuple, Optional
-from dataclasses import dataclass, asdict
+import json
+import sys
+from dataclasses import asdict, dataclass
 from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
@@ -49,13 +49,12 @@ if str(_PROJECT_ROOT) not in sys.path:
 
 from gacs_config import (
     # Directories
-    PROJECT_ROOT,
     DATA_DIR,
     EMBEDDINGS_DIR,
+    QUICK_TEST_MODE,
     # Settings
     SCHEMA_VERSION,
     USE_RAPIDS,
-    QUICK_TEST_MODE,
     # Functions
     setup_logging,
     validate_config,
@@ -74,9 +73,8 @@ if USE_RAPIDS:
 else:
     from sklearn.cluster import KMeans
 
-from sklearn.metrics import silhouette_score
 from sklearn.decomposition import PCA
-
+from sklearn.metrics import silhouette_score
 
 # ============================================================================
 # Module-Level Configuration Constants

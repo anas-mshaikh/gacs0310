@@ -3,12 +3,12 @@ GACS Final Visualizations
 Generates publication-quality scatter plots for the research report.
 """
 import matplotlib
+
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-import pandas as pd
-import numpy as np
 import json
+
+import matplotlib.pyplot as plt
+import pandas as pd
 
 # ─── Load data ───
 df = pd.read_csv('research/gacs_coordinates.csv')

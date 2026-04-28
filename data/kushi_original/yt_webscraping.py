@@ -1,9 +1,10 @@
-import yt_dlp
-import pandas as pd
-from pathlib import Path
-import time
 import random
+import time
 from datetime import datetime
+from pathlib import Path
+
+import pandas as pd
+import yt_dlp
 
 DATA_DIR = Path("data")
 RAW_DIR = DATA_DIR / "raw_videos"
@@ -187,7 +188,7 @@ if __name__ == "__main__":
     save_manifest(manifest)
 
     successful = manifest[manifest["download_ok"] == True]
-    print(f"\nGACS DOWNLOAD COMPLETE!")
+    print("\nGACS DOWNLOAD COMPLETE!")
     print(f"{len(successful)}/{len(manifest)} videos ready")
     print("By category:")
     for cat in successful["category"].dropna().unique():

@@ -9,7 +9,6 @@ import pickle
 import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans
-from scipy import stats
 
 ROOT = "/home/jongcircle/dev/gacs0202"
 PKL_PATH = os.path.join(ROOT, "research/2026-03-16_coordinate_v2/gacs_coordinate_system_v2.pkl")
@@ -38,7 +37,7 @@ print(f"Scenes: {len(coords)}")
 # ── Refit KMeans k=5 ──
 km5 = KMeans(n_clusters=5, random_state=RANDOM_SEED, n_init=10)
 labels = km5.fit_predict(X_pca)
-print(f"\nKMeans k=5 fitted")
+print("\nKMeans k=5 fitted")
 print(f"Cluster sizes: {np.bincount(labels).tolist()}")
 
 # ── Update pkl ──
@@ -61,7 +60,7 @@ print(f"Updated: {COORDS_CSV} (cluster_label → k=5)")
 # ── Update gacs_transform.py ──
 transform_path = os.path.join(ROOT, "research/2026-03-12_coordinate_stabilization/gacs_transform.py")
 # Also copy updated pkl path info
-print(f"\nCoordinate system v2.0 updated to k=5")
+print("\nCoordinate system v2.0 updated to k=5")
 print(f"  Axes: {cs['axis_names'][:N_STABLE]}")
 print(f"  Clusters: {list(k5_data['profiles'].keys())}")
 for ck, prof in k5_data["profiles"].items():

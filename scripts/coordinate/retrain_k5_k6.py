@@ -8,13 +8,13 @@ import pickle
 import warnings
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from scipy import stats
 from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score, silhouette_samples
+from sklearn.metrics import silhouette_samples, silhouette_score
 
 warnings.filterwarnings("ignore")
 
@@ -192,6 +192,6 @@ plt.suptitle("Cluster Comparison: k=3,4,5,6", fontsize=14, fontweight="bold")
 plt.tight_layout(rect=[0, 0, 1, 0.96])
 plt.savefig(os.path.join(OUT, "cluster_comparison_k3456.png"), dpi=150, bbox_inches="tight")
 plt.close()
-print(f"\nSaved: cluster_comparison_k3456.png")
+print("\nSaved: cluster_comparison_k3456.png")
 
 print("\n=== DONE ===")

@@ -207,7 +207,7 @@ def run_phase1(n_samples: int):
             g_moods_str = cached.get("gpt4o_moods", "")
             m_moods_str = cached.get("gemini_moods", "")
             if pd.notna(g_moods_str) and g_moods_str and pd.notna(m_moods_str) and m_moods_str:
-                log.info(f"  Using cached labels")
+                log.info("  Using cached labels")
                 results.append({
                     "image_id": image_id,
                     "image_path": str(img_path),
@@ -250,10 +250,10 @@ def run_phase1(n_samples: int):
 
 def run_phase2():
     """Build PCA coordinate system for each model independently."""
-    from sklearn.preprocessing import StandardScaler
-    from sklearn.decomposition import PCA
-    from sklearn.cluster import KMeans
     from sentence_transformers import SentenceTransformer
+    from sklearn.cluster import KMeans
+    from sklearn.decomposition import PCA
+    from sklearn.preprocessing import StandardScaler
 
     log.info("=" * 70)
     log.info("PHASE 2: Per-Model Coordinate Systems")
@@ -290,7 +290,7 @@ def run_phase2():
         log.info(f"  Valid samples: {len(valid_df)}")
 
         # SBERT embeddings (768d)
-        log.info(f"  Computing SBERT embeddings...")
+        log.info("  Computing SBERT embeddings...")
         embeddings = sbert.encode(valid_moods.tolist(), show_progress_bar=False)
         log.info(f"  Embedding shape: {embeddings.shape}")
 
@@ -507,7 +507,7 @@ def main():
     )
     args = parser.parse_args()
 
-    log.info(f"GACS Multi-Model Coordinate Builder")
+    log.info("GACS Multi-Model Coordinate Builder")
     log.info(f"  n_samples: {args.n_samples}")
     log.info(f"  phase: {args.phase}")
     log.info(f"  output dir: {COORD_DIR}")

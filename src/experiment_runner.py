@@ -15,42 +15,41 @@ Usage:
     python experiment_runner.py all
 """
 
-import sys
-import os
-import json
-import time
 import argparse
-import logging
-from pathlib import Path
+import json
+import sys
+import time
 from datetime import datetime, timedelta
-from typing import List, Dict, Tuple, Optional
-from dataclasses import dataclass, asdict
-
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy import stats
-from tqdm import tqdm
-
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
-from googleapiclient.errors import HttpError
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple
 
 import anthropic
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+from googleapiclient.http import MediaFileUpload
+from scipy import stats
+from tqdm import tqdm
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from gacs_config import (
-    CLAUDE_MODEL, YOUTUBE_SCOPES, SCHEMA_VERSION, PROMPT_VERSION,
-    PROJECT_ROOT, DATA_DIR, GENERATED_DIR, EXPERIMENTS_DIR,
-    QUICK_TEST_MODE, QUICK_TEST_UPLOAD_PRIVACY,
-    setup_logging, validate_config
+    CLAUDE_MODEL,
+    EXPERIMENTS_DIR,
+    GENERATED_DIR,
+    PROJECT_ROOT,
+    QUICK_TEST_UPLOAD_PRIVACY,
+    YOUTUBE_SCOPES,
+    setup_logging,
+    validate_config,
 )
 
 logger = setup_logging(__name__)

@@ -46,3 +46,7 @@ pytest>=7.0.0
 # Install from conda: conda install -c rapidsai cuml
 # Or: pip install cuml-cu12 --extra-index-url https://pypi.nvidia.com
 # =============================================================
+# Database migrations
+SQLAlchemy>=2.0.0
+alembic>=1.13.0
+psycopg2-binary>=2.9.9

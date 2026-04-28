@@ -4,16 +4,19 @@ Subdivide large Cluster 3 (~64% of scenes) into meaningful sub-clusters
 and create a hierarchical cluster scheme.
 """
 
-import json
 import ast
+import json
+
+import matplotlib
 import numpy as np
 import pandas as pd
-import matplotlib
+
 matplotlib.use("Agg")
+from collections import Counter
+
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score, calinski_harabasz_score, davies_bouldin_score
-from collections import Counter
+from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
 
 # ── Paths ──────────────────────────────────────────────────────────────
 EMB_PATH   = "data/step3/emb_emotion_distil_norm.npy"
@@ -226,7 +229,7 @@ for idx in coords.index:
         coords.loc[idx, "cluster_v2"] = f"C3{chr(ord('a') + sc)}"
 
 label_dist = coords["cluster_v2"].value_counts().sort_index()
-print(f"\nHierarchical label distribution:")
+print("\nHierarchical label distribution:")
 for lbl, cnt in label_dist.items():
     print(f"  {lbl}: {cnt} scenes ({cnt/len(coords)*100:.1f}%)")
 
@@ -398,10 +401,10 @@ for lbl in hier_labels_sorted:
     n = (coords["cluster_v2"] == lbl).sum()
     pct = n / len(coords) * 100
     print(f"  {lbl}: {n:>4d} scenes ({pct:>5.1f}%)")
-print(f"\nFull-dataset quality comparison:")
+print("\nFull-dataset quality comparison:")
 print(f"  Original k=4:  Sil={sil_orig:.4f}  CH={ch_orig:.4f}  DB={db_orig:.4f}")
 print(f"  Hierarchical:  Sil={sil_hier:.4f}  CH={ch_hier:.4f}  DB={db_hier:.4f}")
-print(f"\nOutputs:")
+print("\nOutputs:")
 print(f"  {OUT_JSON}")
 print(f"  {OUT_PNG}")
 print(f"  {OUT_CSV}")

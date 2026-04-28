@@ -4,7 +4,6 @@ Analyze unmapped mood words and extend MOOD_MAP using semantic similarity.
 """
 import ast
 import json
-import os
 from collections import Counter
 from pathlib import Path
 
@@ -176,6 +175,7 @@ print("STEP 8: Building extended MOOD_MAP")
 print("=" * 70)
 
 import copy
+
 extended = copy.deepcopy(MOOD_MAP)
 
 for a in assignments:

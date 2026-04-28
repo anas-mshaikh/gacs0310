@@ -2,7 +2,6 @@
 Retry failed video downloads with explicit ffmpeg path.
 Also cleans up partial .f*.mp4 files.
 """
-import glob
 import subprocess
 import sys
 import time
@@ -15,6 +14,7 @@ OUTPUT_DIR = Path("gacs_0202/data/raw_videos")
 
 # Get ffmpeg path from imageio_ffmpeg
 import imageio_ffmpeg
+
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
 print(f"ffmpeg: {FFMPEG}")
 
@@ -75,7 +75,7 @@ for i, row in to_download.iterrows():
 
     except subprocess.TimeoutExpired:
         failed.append(video_id)
-        print(f"  TIMEOUT")
+        print("  TIMEOUT")
     except Exception as e:
         failed.append(video_id)
         print(f"  ERROR: {e}")
@@ -89,7 +89,7 @@ total_gb = sum(f.stat().st_size for f in valid) / (1024**3)
 
 print()
 print("=" * 60)
-print(f"RETRY COMPLETE")
+print("RETRY COMPLETE")
 print(f"  New downloads: {success}")
 print(f"  Failed: {len(failed)}")
 print(f"  Total valid mp4: {len(valid)} / {len(df)}")

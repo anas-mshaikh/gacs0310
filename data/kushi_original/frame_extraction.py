@@ -1,7 +1,8 @@
-import cv2
-import pandas as pd
 from pathlib import Path
+
+import cv2
 import numpy as np
+import pandas as pd
 
 VIDEO_DIR = Path("data/raw_videos")
 FRAMES_DIR = Path("data/frames")

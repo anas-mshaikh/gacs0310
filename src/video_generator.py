@@ -19,27 +19,22 @@ Author: Claude Code
 Version: 1.0
 """
 
-import sys
-import json
 import argparse
+import json
 import random
 import shutil
-from pathlib import Path
-from typing import List, Dict, Tuple, Optional
-from dataclasses import dataclass, asdict
+import sys
+from dataclasses import asdict, dataclass
 from datetime import datetime
-
-import numpy as np
-import pandas as pd
-from tqdm import tqdm
-
-from moviepy import (
-    VideoFileClip, concatenate_videoclips,
-    CompositeVideoClip
-)
-from moviepy.video.fx import FadeIn, FadeOut
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple
 
 import anthropic
+import numpy as np
+import pandas as pd
+from moviepy import VideoFileClip, concatenate_videoclips
+from moviepy.video.fx import FadeIn, FadeOut
+from tqdm import tqdm
 
 # Ensure project root is in sys.path
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -47,24 +42,21 @@ if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
 from gacs_config import (
+    CLAUDE_MODEL,
+    DEFAULT_K_CLUSTERS,
+    EMBEDDINGS_DIR,
+    GENERATED_DIR,
+    MAX_SCENES,
+    MIN_SCENES,
+    OUTPUT_FPS,
     # Directories
     PROJECT_ROOT,
-    DATA_DIR,
-    EMBEDDINGS_DIR,
-    SCENES_DIR,
-    GENERATED_DIR,
-    RAW_VIDEOS_DIR,
-    # Settings
-    DEFAULT_K_CLUSTERS,
-    TARGET_DURATION,
-    MIN_SCENES,
-    MAX_SCENES,
-    OUTPUT_FPS,
-    TRANSITION_DURATION,
-    CLAUDE_MODEL,
-    USE_RAPIDS,
-    USE_NVENC,
     QUICK_TEST_MODE,
+    SCENES_DIR,
+    TARGET_DURATION,
+    TRANSITION_DURATION,
+    USE_NVENC,
+    USE_RAPIDS,
     # Functions
     setup_logging,
     validate_config,
@@ -256,7 +248,7 @@ def cluster_mood_vectors(
             'top_mood_words': top_words
         }
 
-    logger.info(f"Clustering complete. Cluster summary:")
+    logger.info("Clustering complete. Cluster summary:")
     for i, info in cluster_info.items():
         logger.info(f"  Cluster {i}: {info['num_scenes']} scenes, "
                    f"mood: {info['top_mood_words']}")

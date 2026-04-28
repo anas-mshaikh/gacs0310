@@ -45,9 +45,14 @@ class TestPathConfig:
 
     def test_all_data_dirs_exist(self):
         from gacs_config import (
-            RAW_VIDEOS_DIR, SCENES_DIR, ANNOTATIONS_DIR,
-            EMBEDDINGS_DIR, GENERATED_DIR, EXPERIMENTS_DIR,
-            METRICS_DIR, LOGS_DIR,
+            ANNOTATIONS_DIR,
+            EMBEDDINGS_DIR,
+            EXPERIMENTS_DIR,
+            GENERATED_DIR,
+            LOGS_DIR,
+            METRICS_DIR,
+            RAW_VIDEOS_DIR,
+            SCENES_DIR,
         )
         for d in [RAW_VIDEOS_DIR, SCENES_DIR, ANNOTATIONS_DIR,
                   EMBEDDINGS_DIR, GENERATED_DIR, EXPERIMENTS_DIR,
@@ -55,7 +60,7 @@ class TestPathConfig:
             assert d.exists(), f"Directory {d} should be auto-created"
 
     def test_paths_are_pathlib(self):
-        from gacs_config import PROJECT_ROOT, DATA_DIR
+        from gacs_config import DATA_DIR, PROJECT_ROOT
         assert isinstance(PROJECT_ROOT, Path)
         assert isinstance(DATA_DIR, Path)
 
@@ -84,7 +89,7 @@ class TestVideoSettings:
         assert 10 <= TARGET_DURATION <= 120
 
     def test_scene_counts_ordered(self):
-        from gacs_config import MIN_SCENES, MAX_SCENES
+        from gacs_config import MAX_SCENES, MIN_SCENES
         assert MIN_SCENES < MAX_SCENES
 
     def test_fps_reasonable(self):
@@ -121,6 +126,7 @@ class TestYouTubeConfig:
 class TestLogging:
     def test_setup_logging_returns_logger(self):
         import logging
+
         from gacs_config import setup_logging
         logger = setup_logging("test_logger")
         assert isinstance(logger, logging.Logger)
@@ -143,7 +149,7 @@ class TestConfigValidation:
         assert isinstance(result, bool)
 
     def test_validate_config_warns_no_api_key(self):
-        from gacs_config import validate_config, ANTHROPIC_API_KEY
+        from gacs_config import ANTHROPIC_API_KEY, validate_config
         if not ANTHROPIC_API_KEY:
             with pytest.warns(UserWarning, match="ANTHROPIC_API_KEY"):
                 validate_config()

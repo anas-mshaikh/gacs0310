@@ -23,39 +23,47 @@ Usage:
     python -m src.dataset_builder --skip-labeling  # Use cached annotations
 """
 
-import sys
 import argparse
-import os
-import json
-import time
 import base64
 import hashlib
-from pathlib import Path
-from typing import List, Dict, Tuple, Optional
-from dataclasses import dataclass, asdict, field
+import json
+import sys
+import time
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
+from pathlib import Path
+from typing import List, Optional, Tuple
 
+import anthropic
 import cv2
 import numpy as np
 import pandas as pd
-from PIL import Image
-from tqdm import tqdm
-
-from scenedetect import SceneManager, open_video, ContentDetector
-import anthropic
+from scenedetect import ContentDetector, SceneManager, open_video
 from sentence_transformers import SentenceTransformer
+from tqdm import tqdm
 
 # Add project root to path for imports
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(_PROJECT_ROOT))
 
 from gacs_config import (
-    CLAUDE_MODEL, SBERT_MODEL, API_RATE_LIMIT_DELAY, SCENE_THRESHOLD,
-    MIN_SCENE_LENGTH, PROMPT_VERSION, SCHEMA_VERSION,
-    PROJECT_ROOT, DATA_DIR, RAW_VIDEOS_DIR, SCENES_DIR, ANNOTATIONS_DIR,
-    EMBEDDINGS_DIR, QUICK_TEST_MODE, QUICK_TEST_MAX_VIDEOS, QUICK_TEST_MAX_SCENES,
-    GPU_AVAILABLE, GPU_DEVICE, USE_RAPIDS,
-    setup_logging, validate_config
+    ANNOTATIONS_DIR,
+    API_RATE_LIMIT_DELAY,
+    CLAUDE_MODEL,
+    EMBEDDINGS_DIR,
+    GPU_AVAILABLE,
+    GPU_DEVICE,
+    MIN_SCENE_LENGTH,
+    PROJECT_ROOT,
+    PROMPT_VERSION,
+    QUICK_TEST_MAX_VIDEOS,
+    QUICK_TEST_MODE,
+    SBERT_MODEL,
+    SCENE_THRESHOLD,
+    SCENES_DIR,
+    USE_RAPIDS,
+    setup_logging,
+    validate_config,
 )
 
 logger = setup_logging(__name__)
@@ -686,7 +694,7 @@ def process_video(client: anthropic.Anthropic,
     # Check if video exists
     if not video_path.exists():
         logger.warning(f"Video not found at {video_path}")
-        print(f"  ERROR: Video not found")
+        print("  ERROR: Video not found")
         return []
 
     # Step 1: Detect scenes
@@ -822,7 +830,7 @@ def validate_dataset(df: pd.DataFrame) -> bool:
     print(f"Unique scenes: {df['scene_id'].nunique()}")
 
     # Check for missing values
-    print(f"\nMissing values:")
+    print("\nMissing values:")
     has_missing = False
     for col in required_cols:
         missing = df[col].isna().sum()
@@ -833,7 +841,7 @@ def validate_dataset(df: pd.DataFrame) -> bool:
         print("  None")
 
     # Mood word frequency
-    print(f"\nTop 20 mood words:")
+    print("\nTop 20 mood words:")
     all_mood_words = []
     for words in df['mood_words']:
         all_mood_words.extend([w.strip() for w in words.split(',')])
@@ -1006,7 +1014,7 @@ def main(args):
             all_results.extend(results)
 
     print(f"\n{'='*70}")
-    print(f"Scene Processing Complete!")
+    print("Scene Processing Complete!")
     print(f"{'='*70}")
     print(f"Total scenes processed: {len(all_results)}")
     logger.info(f"Scene processing complete: {len(all_results)} scenes")
@@ -1020,7 +1028,7 @@ def main(args):
         gacs_df.to_csv(output_path, index=False)
 
         print(f"\n{'='*70}")
-        print(f"Dataset Saved")
+        print("Dataset Saved")
         print(f"{'='*70}")
         print(f"Output: {output_path}")
         print(f"Total entries: {len(gacs_df)}")

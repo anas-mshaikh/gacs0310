@@ -14,6 +14,7 @@ import time
 import warnings
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
@@ -135,7 +136,7 @@ def get_category(vid):
         return "other"
 
 df["category"] = df["video_id"].apply(get_category)
-print(f"\nCategories:")
+print("\nCategories:")
 for cat, cnt in df["category"].value_counts().items():
     print(f"  {cat}: {cnt}")
 
@@ -144,7 +145,7 @@ print("\n--- Loading j-hartmann/emotion-english-distilroberta-base ---")
 model = SentenceTransformer(
     "j-hartmann/emotion-english-distilroberta-base", device="cuda"
 )
-print(f"  Model loaded, device=cuda")
+print("  Model loaded, device=cuda")
 
 print("\nEncoding original texts (normalized embeddings)...")
 t0 = time.time()
@@ -455,12 +456,12 @@ print("\n" + "=" * 70)
 print("FINAL SUMMARY")
 print("=" * 70)
 print(f"\n  Dataset:        {n_scenes} scenes")
-print(f"  Embedding:      emotion_distil_norm (768d, L2 normalized)")
+print("  Embedding:      emotion_distil_norm (768d, L2 normalized)")
 print(f"  PCA:            {N_COMPONENTS} components, {cumvar[-1]:.4f} variance")
 print(f"  Best k:         {best_k} (silhouette={best_sil:.4f})")
 print(f"  Cluster sizes:  {np.bincount(cluster_labels).tolist()}")
 print(f"  Stability:      {n_stable} STABLE / {n_moderate} MODERATE / {n_unstable} UNSTABLE")
-print(f"\nOutputs:")
+print("\nOutputs:")
 print(f"  {OUT_EMB}/emb_emotion_distil_norm.npy ({n_scenes}x768)")
 print(f"  {OUT_RESEARCH}/gacs_coordinate_system_v2.pkl")
 print(f"  {OUT_RESEARCH}/gacs_coordinates_v2.csv ({n_scenes} rows)")

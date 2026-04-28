@@ -22,8 +22,8 @@ Usage:
     python run_pipeline.py info
 """
 
-import sys
 import argparse
+import sys
 import time
 from pathlib import Path
 
@@ -33,21 +33,21 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from gacs_config import (
+    ANTHROPIC_API_KEY,
+    CLAUDE_MODEL,
     GPU_AVAILABLE,
+    GPU_DEVICE,
     GPU_NAME,
     GPU_VRAM_GB,
-    GPU_DEVICE,
-    USE_NVENC,
-    USE_RAPIDS,
     LABELING_BACKEND,
     LOCAL_VISION_MODEL,
-    CLAUDE_MODEL,
+    QUICK_TEST_MODE,
     SBERT_MODEL,
     SCHEMA_VERSION,
-    QUICK_TEST_MODE,
-    ANTHROPIC_API_KEY,
-    validate_config,
+    USE_NVENC,
+    USE_RAPIDS,
     setup_logging,
+    validate_config,
 )
 
 logger = setup_logging("gacs_pipeline")
@@ -62,7 +62,7 @@ def show_info():
     print(f"\n  Schema Version:    {SCHEMA_VERSION}")
     print(f"  Quick-Test Mode:   {QUICK_TEST_MODE}")
 
-    print(f"\n  --- GPU ---")
+    print("\n  --- GPU ---")
     print(f"  CUDA Available:    {GPU_AVAILABLE}")
     if GPU_AVAILABLE:
         print(f"  GPU Name:          {GPU_NAME}")
@@ -71,7 +71,7 @@ def show_info():
     print(f"  NVENC Encoding:    {USE_NVENC}")
     print(f"  RAPIDS cuML:       {USE_RAPIDS}")
 
-    print(f"\n  --- Models ---")
+    print("\n  --- Models ---")
     print(f"  Labeling Backend:  {LABELING_BACKEND}")
     if LABELING_BACKEND == "claude":
         print(f"  Claude Model:      {CLAUDE_MODEL}")
@@ -80,7 +80,7 @@ def show_info():
         print(f"  Local Model:       {LOCAL_VISION_MODEL}")
     print(f"  SBERT Model:       {SBERT_MODEL}")
 
-    print(f"\n  --- Config Validation ---")
+    print("\n  --- Config Validation ---")
     ok = validate_config()
     print(f"  All checks pass:   {ok}")
     print()

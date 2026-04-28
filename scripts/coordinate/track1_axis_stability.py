@@ -4,19 +4,20 @@ Tests whether PCA axes are stable across data subsets and builds
 a serializable coordinate system for new data.
 """
 
+import json
+import os
+import pickle
+
+import matplotlib
 import numpy as np
 import pandas as pd
-import json
-import pickle
-import os
-from datetime import datetime
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
-import matplotlib
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
+import matplotlib.pyplot as plt
 
 # ── Paths ────────────────────────────────────────────────────────────────
 ROOT = "/home/jongcircle/dev/gacs0202"
@@ -480,17 +481,17 @@ print("\n" + "=" * 70)
 print("FINAL SUMMARY")
 print("=" * 70)
 print(f"\nOutputs saved to {RESEARCH}/:")
-print(f"  - axis_stability.json       (stability test results)")
-print(f"  - axis_stability.png        (heatmap visualization)")
-print(f"  - gacs_coordinate_system_v1.pkl  (versioned coordinate system)")
-print(f"  - gacs_transform.py         (standalone transform module)")
-print(f"\nAxis Stability:")
+print("  - axis_stability.json       (stability test results)")
+print("  - axis_stability.png        (heatmap visualization)")
+print("  - gacs_coordinate_system_v1.pkl  (versioned coordinate system)")
+print("  - gacs_transform.py         (standalone transform module)")
+print("\nAxis Stability:")
 for s in stability_results["summary"]:
     print(f"  {s['pc']:4s} {s['name']:25s}  overall={s['overall_mean']:.4f}  [{s['status']}]")
 print(f"\n  {n_stable} STABLE / {n_moderate} MODERATE / {n_unstable} UNSTABLE out of {N_COMPONENTS} PCs")
-print(f"\nCoordinate System v1.0:")
-print(f"  Scaler: StandardScaler (768 features)")
+print("\nCoordinate System v1.0:")
+print("  Scaler: StandardScaler (768 features)")
 print(f"  PCA: {N_COMPONENTS} components, {total_var:.4f} variance explained")
-print(f"  KMeans: k=4")
-print(f"  Verification: PASSED")
+print("  KMeans: k=4")
+print("  Verification: PASSED")
 print("\nDone.")

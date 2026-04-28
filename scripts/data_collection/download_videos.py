@@ -89,7 +89,7 @@ with open(LOG_FILE, "w") as log:
 
 print()
 print("=" * 60)
-print(f"DOWNLOAD COMPLETE")
+print("DOWNLOAD COMPLETE")
 print(f"  Success: {success}")
 print(f"  Skipped (already existed): {skipped}")
 print(f"  Failed: {len(failed)}")

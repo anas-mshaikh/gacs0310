@@ -20,15 +20,11 @@ import argparse
 import base64
 import json
 import os
-import sys
 import time
-from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional
 
 import cv2
-import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
 
@@ -108,7 +104,7 @@ def get_unprocessed_videos() -> list:
 
 def detect_scenes_and_extract(video_path: Path) -> list:
     """Detect scenes and extract keyframes for a single video."""
-    from scenedetect import open_video, SceneManager, ContentDetector
+    from scenedetect import ContentDetector, SceneManager, open_video
 
     video_id = video_path.stem
     scenes_info = []

@@ -3,7 +3,6 @@
 import sys
 from pathlib import Path
 
-import pytest
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent.parent))

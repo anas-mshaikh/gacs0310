@@ -2,17 +2,21 @@
 Step 3: Emotion-Specific Embedding + 3-Model Comparison
 Models: (1) paraphrase-MiniLM-L3-v2 (Kushi), (2) all-MiniLM-L6-v2, (3) roberta-base-go_emotions
 """
-import ast, json, time, warnings
+import json
+import time
+import warnings
+from pathlib import Path
+
+import matplotlib
 import numpy as np
 import pandas as pd
-from pathlib import Path
-from sentence_transformers import SentenceTransformer
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
 import umap
-import matplotlib
+from sentence_transformers import SentenceTransformer
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+from sklearn.metrics import silhouette_score
+from sklearn.preprocessing import StandardScaler
+
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 

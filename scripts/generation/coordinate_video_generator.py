@@ -16,7 +16,6 @@ Usage:
 
 import argparse
 import json
-import os
 import sys
 import warnings
 from datetime import datetime
@@ -268,7 +267,7 @@ def mode_cluster(coords, dataset, manifest):
         if duration:
             print(f"  Output: {out_path} ({duration:.1f}s)")
         else:
-            print(f"  FAILED: no clips rendered")
+            print("  FAILED: no clips rendered")
 
 
 def mode_traverse(coords, dataset, manifest, axis="PC1", steps=5):
@@ -342,7 +341,7 @@ def mode_traverse(coords, dataset, manifest, axis="PC1", steps=5):
 def mode_target(coords, dataset, manifest, target_pcs):
     """특정 좌표 지정 → 영상 생성."""
     print(f"\n{'='*60}")
-    print(f"MODE: TARGET")
+    print("MODE: TARGET")
     print(f"  Target: {target_pcs}")
     print(f"{'='*60}")
 

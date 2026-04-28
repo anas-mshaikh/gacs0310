@@ -2,21 +2,22 @@
 research_1_clustering.py
 Compare clustering algorithms on emotion embeddings.
 """
-import os
-import json
 import ast
+import json
+import os
 import warnings
 from collections import Counter
 
+import matplotlib
 import numpy as np
 import pandas as pd
-import matplotlib
+
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import KMeans, DBSCAN
+from sklearn.cluster import DBSCAN, KMeans
+from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
 from sklearn.mixture import GaussianMixture
-from sklearn.metrics import silhouette_score, calinski_harabasz_score, davies_bouldin_score
+from sklearn.preprocessing import StandardScaler
 
 try:
     import hdbscan
@@ -226,7 +227,7 @@ print("Saved research/clustering_comparison.png")
 
 # ── Best config & cluster profiling ──
 best = all_results[0]
-print(f"\n=== BEST CONFIG ===")
+print("\n=== BEST CONFIG ===")
 print(f"Algorithm: {best['algorithm']}")
 print(f"Params: {best['params']}")
 print(f"Silhouette: {best['silhouette']}")
@@ -350,7 +351,7 @@ optimal_output = {
 
 with open(os.path.join(OUT, 'optimal_clusters.json'), 'w') as f:
     json.dump(optimal_output, f, indent=2)
-print(f"\nSaved research/optimal_clusters.json")
+print("\nSaved research/optimal_clusters.json")
 
 # ── Final summary table ──
 print(f"\n{'='*100}")

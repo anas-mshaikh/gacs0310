@@ -12,27 +12,27 @@ Usage:
     annotation = label_keyframe(image_path, video_id, scene_id)
 """
 
-import json
-import time
 import base64
+import json
 import sys
+import time
+from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Optional, List, Dict, Any
-from dataclasses import dataclass, asdict
+from typing import Any, Dict, List, Optional
 
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
 from gacs_config import (
-    LABELING_BACKEND,
-    LOCAL_VISION_MODEL,
-    CLAUDE_MODEL,
+    ANNOTATIONS_DIR,
     ANTHROPIC_API_KEY,
     API_RATE_LIMIT_DELAY,
-    GPU_DEVICE,
+    CLAUDE_MODEL,
     GPU_AVAILABLE,
-    ANNOTATIONS_DIR,
+    GPU_DEVICE,
+    LABELING_BACKEND,
+    LOCAL_VISION_MODEL,
     PROMPT_VERSION,
     setup_logging,
 )
